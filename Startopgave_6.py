@@ -7,9 +7,11 @@
 
 # Opmerking: Het alpaca bestand is erg groot! Neem eerst een klein proefstukje van het bestand, met 5 tot 10 fasta's.
 # Ga je runnen met het echte bestand, geef je programma dan even de tijd.
+#"/home/cole/Downloads/GCF_000164845.2_Vicugna_pacos-2.0.2_rna.fna"
+
 
 def main():
-    bestand = "/home/cole/Downloads/GCF_000164845.2_Vicugna_pacos-2.0.2_rna.fna" # Voer hier de bestandsnaam van het juiste bestand in, of hernoem je bestand
+    bestand = "/home/cole/Downloads/GCF_000164845.2_Vicugna_pacos-2.0.2_rna.fna"
     enzymen_bestand = open ("enzymen.txt")
     enzymenlijst = []
     for regel in enzymen_bestand:
@@ -18,27 +20,31 @@ def main():
     Hier onder vind je de aanroep van de lees_inhoud functie, die gebruikt maakt van de bestand variabele als argument.
     De resultaten van de functie, de lijst met headers en de lijst met sequenties, sla je op deze manier op in twee losse resultaten.
     """
-    combi = lees_inhoud(bestand)
+    combi, bestand_gevonden = lees_inhoud(bestand)
 
     fastanummer = 0 # op welke positie zit het restricie-enzym? een tellertje die dat verteld
     teller = 0 # deze teller verteld uiteindelijk het totaal aantal hits
-        
-    zoekwoord = input("Geef een zoekwoord op: ")
 
+    if bestand_gevonden == True:
+        zoekwoord = input("Geef een zoekwoord op: ")
+    
     # Ga door alle fasta elementen heen
+
     for fasta in combi:
         fastanummer +=1
         # Kijk wat we hier hebben
         header = fasta[0]
         sequentie = fasta[1]
 
+
         # Conditie 1: is de header okee?
-        if header.find(zoekwoord) <0:
+        if header.find(zoekwoord) < 0:
             # Het zoekwoord zit niet in de header...
             continue
 
         # Conditie 2: Is dit dna??
         if is_dna(sequentie):
+            
             # YES het is dna...
 
             # Conditie 3: knipt dit voor een restrictie-enzym?
@@ -58,27 +64,32 @@ def main():
 
     #print(gevonden)
     # We zijn klaar
+
     print("Alles is verwerkt, er zijn zoveel hits:", teller)
     
 def lees_inhoud(bestands_naam):
-    bestand = open(bestands_naam)
+    bestand_gevonden = True      
     # headers = []
     # seqs = []
     combi = []
-
-    for regel in bestand:
-       if regel.startswith(">"):
-           # seqs.append(regel.strip())
-           fasta = []
-           fasta.append(regel.strip())
-       else:
-           # headers.append(regel.strip())
-           # Plaats de sequentie in lijst fasta
-           fasta.append(regel.strip())
-           # Plaats het fastalijstje in combi
-           combi.append(fasta)
-
-    return combi
+    try:
+        
+        for regel in open(bestands_naam):
+           if regel.startswith(">"):
+       # seqs.append(regel.strip())
+               fasta = []
+               fasta.append(regel.strip())
+           else:
+               # headers.append(regel.strip())
+               # Plaats de sequentie in lijst fasta
+               fasta.append(regel.strip())
+               # Plaats het fastalijstje in combi
+               combi.append(fasta)
+    except FileNotFoundError:
+        print("het is niet het goede bestand")
+        bestand_gevonden = False
+        #raise SystemExit
+    return combi, bestand_gevonden
 
     """
     Schrijf hier je eigen code die het bestand inleest en deze splitst in headers en sequenties.
