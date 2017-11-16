@@ -11,7 +11,7 @@
 
 
 def main():
-    bestand = "/home/cole/Downloads/GCF_000164845.2_Vicugna_pacos-2.0.2_rna.fna"
+    bestand = "/home/cole/Documents/course 1/fasta bestanden/mus musculus eiwit.fasta"
     enzymen_bestand = open ("enzymen.txt")
     enzymenlijst = []
     for regel in enzymen_bestand:
@@ -31,10 +31,12 @@ def main():
     # Ga door alle fasta elementen heen
 
     for fasta in combi:
+        print("-"*30)
+        print(fasta)
         fastanummer +=1
         # Kijk wat we hier hebben
         header = fasta[0]
-        sequentie = fasta[1]
+        sequentie = fasta[1:]
 
 
         # Conditie 1: is de header okee?
@@ -43,8 +45,8 @@ def main():
             continue
 
         # Conditie 2: Is dit dna??
-        if is_dna(sequentie):
-            
+        gevonden = is_dna(sequentie)
+        if gevonden == True:
             # YES het is dna...
 
             # Conditie 3: knipt dit voor een restrictie-enzym?
@@ -101,9 +103,27 @@ def lees_inhoud(bestands_naam):
    
     
 def is_dna(sequentie):
-    
-    
-    gevonden = (sequentie.count("M") == 0)
+    lengte = 0
+    A_T_C_G = 0
+    print(sequentie)
+    for regel in sequentie:
+         lengte += len(regel)
+         
+    for regel in sequentie:
+        for letter in regel:
+            if letter == "A":
+                A_T_C_G +=  1
+            if letter == "T":
+                A_T_C_G +=  1
+            if letter == "C":
+                A_T_C_G +=  1
+            if letter == "G":
+                A_T_C_G +=  1
+    if lengte == A_T_C_G:
+        gevonden = True
+    else:
+        gevonden = False
+        
     return gevonden
     
     """
@@ -120,7 +140,8 @@ def knipt(sequentie, enzymenlijst):
     for regel in enzymenlijst:                  #een loopje die het bestand doorleest
         enzym, seq = regel.split()              #het enzym wordt gescheiden  van de regel
         seq = seq.replace("^","")               #het dakje wordt vervangen door niets 
-        if sequentie.find(seq) >= 0:            #hier moet ik ervoor zorgen dat het programma met "seq" over de sequenties heen ittereerd
+
+        if seq in sequentie > 0:               #hier moet ik ervoor zorgen dat het programma met "seq" over de sequenties heen ittereerd
             # Deze seq zit in sequentie
             sEnzymen += enzym + " "
                                                 #en als er een hit is, wordt het enzym door gestuurd naar de main() functie                                
