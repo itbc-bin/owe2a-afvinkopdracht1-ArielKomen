@@ -11,7 +11,7 @@
 
 
 def main():
-    bestand = "/home/cole/Documents/course 1/fasta bestanden/mus musculus eiwit.fasta"
+    bestand = "/home/cole/Downloads/GCF_000164845.2_Vicugna_pacos-2.0.2_rna.fna"
     enzymen_bestand = open ("enzymen.txt")
     enzymenlijst = []
     for regel in enzymen_bestand:
@@ -31,8 +31,6 @@ def main():
     # Ga door alle fasta elementen heen
 
     for fasta in combi:
-        print("-"*30)
-        print(fasta)
         fastanummer +=1
         # Kijk wat we hier hebben
         header = fasta[0]
@@ -52,7 +50,7 @@ def main():
             # Conditie 3: knipt dit voor een restrictie-enzym?
             enzymen = knipt(sequentie, enzymenlijst)
             if enzymen != "":
-                # We hebben er eentje!!
+                
                 print(fastanummer, header, enzymen)
                 teller += 1
                 
@@ -73,20 +71,22 @@ def lees_inhoud(bestands_naam):
     bestand_gevonden = True      
     # headers = []
     # seqs = []
+    fasta = []
     combi = []
     try:
         
         for regel in open(bestands_naam):
-           if regel.startswith(">"):
-       # seqs.append(regel.strip())
-               fasta = []
-               fasta.append(regel.strip())
-           else:
-               # headers.append(regel.strip())
-               # Plaats de sequentie in lijst fasta
-               fasta.append(regel.strip())
-               # Plaats het fastalijstje in combi
-               combi.append(fasta)
+            gestripte_regel = regel.strip()
+            if gestripte_regel.startswith(">"):
+                if fasta != []:
+                    combi.append(fasta)
+
+                fasta = []
+
+            fasta.append(gestripte_regel)
+
+        combi.append(fasta)
+        
     except FileNotFoundError:
         print("het is niet het goede bestand")
         bestand_gevonden = False
@@ -141,7 +141,7 @@ def knipt(sequentie, enzymenlijst):
         enzym, seq = regel.split()              #het enzym wordt gescheiden  van de regel
         seq = seq.replace("^","")               #het dakje wordt vervangen door niets 
 
-        if seq in sequentie > 0:               #hier moet ik ervoor zorgen dat het programma met "seq" over de sequenties heen ittereerd
+        if seq in sequentie > 0:                #hier moet ik ervoor zorgen dat het programma met "seq" over de sequenties heen ittereerd
             # Deze seq zit in sequentie
             sEnzymen += enzym + " "
                                                 #en als er een hit is, wordt het enzym door gestuurd naar de main() functie                                
