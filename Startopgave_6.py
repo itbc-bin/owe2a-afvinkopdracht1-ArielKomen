@@ -15,7 +15,11 @@ def main():
     enzymen_bestand = open ("enzymen.txt")
     enzymenlijst = []
     for regel in enzymen_bestand:
-        enzymenlijst.append(regel)
+        enzym, seq = regel.split()            
+        seq = seq.replace("^","")
+        seq = seq.replace("\n","")
+        enzymenlijst.append(seq)
+      
     """
     Hier onder vind je de aanroep van de lees_inhoud functie, die gebruikt maakt van de bestand variabele als argument.
     De resultaten van de functie, de lijst met headers en de lijst met sequenties, sla je op deze manier op in twee losse resultaten.
@@ -105,9 +109,8 @@ def lees_inhoud(bestands_naam):
 def is_dna(sequentie):
     lengte = 0
     A_T_C_G = 0
-    print(sequentie)
     for regel in sequentie:
-         lengte += len(regel)
+         lengte += len(regel.strip())
          
     for regel in sequentie:
         for letter in regel:
@@ -135,15 +138,14 @@ def is_dna(sequentie):
 
 def knipt(sequentie, enzymenlijst):
 
-
+    i = 0 
     sEnzymen = ""
-    for regel in enzymenlijst:                  #een loopje die het bestand doorleest
-        enzym, seq = regel.split()              #het enzym wordt gescheiden  van de regel
-        seq = seq.replace("^","")               #het dakje wordt vervangen door niets 
-
-        if seq in sequentie > 0:                #hier moet ik ervoor zorgen dat het programma met "seq" over de sequenties heen ittereerd
-            # Deze seq zit in sequentie
-            sEnzymen += enzym + " "
+    for regel in enzymenlijst:                  
+        #positie = sequentie(enzymenlijst[i])
+        #kijkt of iets in de sequentie zit
+        if regel in sequentie:
+            sEnzymen += regel + " "
+        i += 1   
                                                 #en als er een hit is, wordt het enzym door gestuurd naar de main() functie                                
     return sEnzymen                                 
     """
