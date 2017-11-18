@@ -53,23 +53,16 @@ def main():
 
             # Conditie 3: knipt dit voor een restrictie-enzym?
             enzymen = knipt(sequentie, enzymenlijst)
+            
             if enzymen != "":
-                
+            
                 print(fastanummer, header, enzymen)
                 teller += 1
-                
-    
-    #print(headers)
-    #print("-"*80)
-    #print(seqs)
-    # schrijf hier de rest van de code nodig om de aanroepen te doen
-    
-    #gevonden = is_dna(seqs)
-
-    #print(gevonden)
-    # We zijn klaar
-
-    print("Alles is verwerkt, er zijn zoveel hits:", teller)
+            
+    if teller == 0:
+        print("er zijn geen hits, probeer het opnieuw met een ander zoekwoord dan:", zoekwoord)
+    else:    
+        print("Alles is verwerkt, er zijn zoveel hits:", teller)
     
 def lees_inhoud(bestands_naam):
     bestand_gevonden = True      
@@ -139,15 +132,14 @@ def is_dna(sequentie):
 
 def knipt(sequentie, enzymenlijst):
 
-    i = 0 
+    
     sEnzymen = ""
     for regel in enzymenlijst:                  
-        #positie = sequentie(enzymenlijst[i])
         #kijkt of iets in de sequentie zit
         if regel in sequentie:
             sEnzymen += regel + " "
-        i += 1   
-                                                #en als er een hit is, wordt het enzym door gestuurd naar de main() functie                                
+    
+    #en als er een hit is, wordt het enzym door gestuurd naar de main() functie                                        
     return sEnzymen                                 
     """
     Bij deze functie kan je een deel van de code die je de afgelopen 2 afvinkopdrachten geschreven hebt herbruiken
