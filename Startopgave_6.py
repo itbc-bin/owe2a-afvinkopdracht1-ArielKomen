@@ -38,7 +38,7 @@ def main():
         fastanummer +=1
         # Kijk wat we hier hebben
         header = fasta[0]
-        sequentie = fasta[1:]
+        sequentie = "".join(fasta[1:])
 
 
         # Conditie 1: is de header okee?
@@ -107,6 +107,7 @@ def lees_inhoud(bestands_naam):
    
     
 def is_dna(sequentie):
+    
     lengte = 0
     A_T_C_G = 0
     for regel in sequentie:
@@ -126,7 +127,7 @@ def is_dna(sequentie):
         gevonden = True
     else:
         gevonden = False
-        
+    
     return gevonden
     
     """
