@@ -11,10 +11,10 @@
 
 
 def main():
-    bestand = "/home/cole/Downloads/GCF_000164845.2_Vicugna_pacos-2.0.2_rna.fna"
+    bestand = "/home/cole/Documents/course 1/fasta bestanden/gallus gallus eiwit.fasta"
     enzymen_bestand = open ("enzymen.txt")
     enzymenlijst = []
-    gevonden = False 
+    gevonden = True
     for regel in enzymen_bestand:
         enzym, seq = regel.split()            
         seq = seq.replace("^","")
@@ -62,13 +62,14 @@ def main():
                 print(fastanummer, header, enzymen)
                 teller += 1
 
-    if teller == 0 and gevonden != False:
-        print("het bestand is geen DNA bestand, geef een DNA bestand als invoer") 
-    elif teller == 0:
+
+    gevonden = is_dna(sequentie)
+    if teller == 0 and gevonden == True:
         print("er zijn geen hits, probeer het opnieuw met een ander zoekwoord dan:", zoekwoord)
-    else:    
+    elif gevonden == True:    
         print("Alles is verwerkt, er zijn zoveel hits:", teller)
-    
+    else:
+        print("")
 def lees_inhoud(bestands_naam):
     bestand_gevonden = True      
     # headers = []
