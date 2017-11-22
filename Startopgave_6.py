@@ -85,7 +85,7 @@ def lees_inhoud(bestands_naam):
         combi.append(fasta)
         
     except FileNotFoundError:
-        print("het is niet het goede bestand")
+        print("het is niet het goede bestand of er is geen bestand.")
         bestand_gevonden = False
         #raise SystemExit
     return combi, bestand_gevonden
