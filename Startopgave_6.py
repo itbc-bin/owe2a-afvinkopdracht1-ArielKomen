@@ -8,13 +8,14 @@
 # Opmerking: Het alpaca bestand is erg groot! Neem eerst een klein proefstukje van het bestand, met 5 tot 10 fasta's.
 # Ga je runnen met het echte bestand, geef je programma dan even de tijd.
 #"/home/cole/Downloads/GCF_000164845.2_Vicugna_pacos-2.0.2_rna.fna"
-
+#"/home/cole/Documents/course 1/fasta bestanden/gallus gallus eiwit.fasta"
+#"/home/cole/Documents/course 1/fasta bestanden/genoom mus mus musculus.fasta"
 
 def main():
-    bestand = "/home/cole/Documents/course 1/fasta bestanden/gallus gallus eiwit.fasta"
+    bestand = "/home/cole/Documents/course 1/fasta bestanden/genoom mus mus musculus.fasta"
     enzymen_bestand = open ("enzymen.txt")
     enzymenlijst = []
-    gevonden = True
+    #gevonden = True
     for regel in enzymen_bestand:
         enzym, seq = regel.split()            
         seq = seq.replace("^","")
@@ -49,8 +50,8 @@ def main():
 
         # Conditie 2: Is dit dna??
         gevonden = is_dna(sequentie)
-        if gevonden != True:
-            print("het bestand is geen DNA bestand, geef een DNA bestand als invoer")
+        #if gevonden != True:
+            #print("het bestand is geen DNA bestand, geef een DNA bestand als invoer")
         if gevonden == True:
             # YES het is dna...
 
@@ -69,7 +70,7 @@ def main():
     elif gevonden == True:    
         print("Alles is verwerkt, er zijn zoveel hits:", teller)
     else:
-        print("")
+        print("het bestand is geen DNA bestand, geef een DNA bestand als invoer")
 def lees_inhoud(bestands_naam):
     bestand_gevonden = True      
     # headers = []
