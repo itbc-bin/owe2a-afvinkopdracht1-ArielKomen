@@ -14,6 +14,7 @@ def main():
     bestand = "/home/cole/Downloads/GCF_000164845.2_Vicugna_pacos-2.0.2_rna.fna"
     enzymen_bestand = open ("enzymen.txt")
     enzymenlijst = []
+    gevonden = False 
     for regel in enzymen_bestand:
         enzym, seq = regel.split()            
         seq = seq.replace("^","")
@@ -48,6 +49,8 @@ def main():
 
         # Conditie 2: Is dit dna??
         gevonden = is_dna(sequentie)
+        if gevonden != True:
+            print("het bestand is geen DNA bestand, geef een DNA bestand als invoer")
         if gevonden == True:
             # YES het is dna...
 
@@ -58,9 +61,11 @@ def main():
             
                 print(fastanummer, header, enzymen)
                 teller += 1
-            
+    
     if teller == 0:
         print("er zijn geen hits, probeer het opnieuw met een ander zoekwoord dan:", zoekwoord)
+    elif teller == 0 and gevonden != True:
+        print("het bestand is geen DNA bestand, geef een DNA bestand als invoer")
     else:    
         print("Alles is verwerkt, er zijn zoveel hits:", teller)
     
