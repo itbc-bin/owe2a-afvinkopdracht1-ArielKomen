@@ -12,10 +12,9 @@
 #"/home/cole/Documents/course 1/fasta bestanden/genoom mus mus musculus.fasta"
 
 def main():
-    bestand = "/home/cole/Documents/course 1/fasta bestanden/genoom mus mus musculus.fasta"
+    bestand = "/home/cole/Downloads/GCF_000164845.2_Vicugna_pacos-2.0.2_rna.fna"
     enzymen_bestand = open ("enzymen.txt")
     enzymenlijst = []
-    #gevonden = True
     for regel in enzymen_bestand:
         enzym, seq = regel.split()            
         seq = seq.replace("^","")
@@ -50,8 +49,6 @@ def main():
 
         # Conditie 2: Is dit dna??
         gevonden = is_dna(sequentie)
-        #if gevonden != True:
-            #print("het bestand is geen DNA bestand, geef een DNA bestand als invoer")
         if gevonden == True:
             # YES het is dna...
 
