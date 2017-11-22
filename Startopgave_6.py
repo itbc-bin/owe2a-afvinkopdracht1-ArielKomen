@@ -61,11 +61,11 @@ def main():
             
                 print(fastanummer, header, enzymen)
                 teller += 1
-    
-    if teller == 0:
+
+    if teller == 0 and gevonden != False:
+        print("het bestand is geen DNA bestand, geef een DNA bestand als invoer") 
+    elif teller == 0:
         print("er zijn geen hits, probeer het opnieuw met een ander zoekwoord dan:", zoekwoord)
-    elif teller == 0 and gevonden != True:
-        print("het bestand is geen DNA bestand, geef een DNA bestand als invoer")
     else:    
         print("Alles is verwerkt, er zijn zoveel hits:", teller)
     
