@@ -8,10 +8,16 @@
 #"/home/cole/Documents/course 1/fasta bestanden/genoom mus mus musculus.fasta"
 
 def main():
-    bestand = ""
-    enzymen_bestand = open ("enzymen.txt")
+    bestand = "/home/cole/Documents/course 1/fasta bestanden/genoom mus mus musculus.fasta"
+    enzymen_bestand = ""
+    try:
+        enzymen_bestand = open ("/home/cole/Documents/course 2/afvinkopdrachten 2/enzymen.txt")
+    except FileNotFoundError:
+        print("het enzymenbestand is niet ingevoerd. Voer het enzymenbestand in!")
+        
     enzymenlijst = []
     zoekwoord = ""
+    sequentie = []
     for regel in enzymen_bestand:
         enzym, seq = regel.split()            
         seq = seq.replace("^","")
@@ -28,10 +34,11 @@ def main():
     teller = 0 # deze teller verteld uiteindelijk het totaal aantal hits
 
     if bestand_gevonden == True:
-        zoekwoord = input("Geef een zoekwoord op: ")
+        if enzymen_bestand != "":
+            zoekwoord = input("Geef een zoekwoord op: ")
     
     # Ga door alle fasta elementen heen
-    sequentie = []
+    
     for fasta in combi:
         fastanummer +=1
         # Kijk wat we hier hebben
@@ -46,9 +53,6 @@ def main():
 
         # Conditie 2: Is dit dna??
         gevonden = is_dna(sequentie)
-        
-        #if gevonden == str(gevonden):
-            #print("het werkt")
             
         if gevonden == True:
             # YES het is dna...
@@ -138,7 +142,7 @@ def is_dna(sequentie):
         gevonden = True
     else:
         gevonden = False
-    
+
     return gevonden
     
     """
