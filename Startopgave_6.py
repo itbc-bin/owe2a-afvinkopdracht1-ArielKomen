@@ -3,18 +3,15 @@
 # Datum: 18-10-2017 
 # Versie: 1
 
-
-
-
-
 #"/home/cole/Downloads/GCF_000164845.2_Vicugna_pacos-2.0.2_rna.fna"
 #"/home/cole/Documents/course 1/fasta bestanden/gallus gallus eiwit.fasta"
 #"/home/cole/Documents/course 1/fasta bestanden/genoom mus mus musculus.fasta"
 
 def main():
-    bestand = "/home/cole/Downloads/GCF_000164845.2_Vicugna_pacos-2.0.2_rna.fna"
+    bestand = ""
     enzymen_bestand = open ("enzymen.txt")
     enzymenlijst = []
+    zoekwoord = ""
     for regel in enzymen_bestand:
         enzym, seq = regel.split()            
         seq = seq.replace("^","")
@@ -34,7 +31,7 @@ def main():
         zoekwoord = input("Geef een zoekwoord op: ")
     
     # Ga door alle fasta elementen heen
-
+    sequentie = []
     for fasta in combi:
         fastanummer +=1
         # Kijk wat we hier hebben
@@ -49,6 +46,10 @@ def main():
 
         # Conditie 2: Is dit dna??
         gevonden = is_dna(sequentie)
+        
+        #if gevonden == str(gevonden):
+            #print("het werkt")
+            
         if gevonden == True:
             # YES het is dna...
 
@@ -56,18 +57,24 @@ def main():
             enzymen = knipt(sequentie, enzymenlijst)
             
             if enzymen != "":
-            
-                print(fastanummer, header, enzymen)
-                teller += 1
-
-
+                try:
+                    print(fastanummer, header, enzymen)
+                    teller += 1
+                except KeyboardInterrupt:
+                    print("\nje hebt het programma onderbroken!")
+                    break
+ 
     gevonden = is_dna(sequentie)
-    if teller == 0 and gevonden == True:
-        print("er zijn geen hits, probeer het opnieuw met een ander zoekwoord dan:", zoekwoord)
-    elif gevonden == True:    
-        print("Alles is verwerkt, er zijn zoveel hits:", teller)
-    else:
-        print("het bestand is geen DNA bestand, geef een DNA bestand als invoer")
+    if zoekwoord != "":
+        if teller == 0 and gevonden == True:
+            print("er zijn geen hits, probeer het opnieuw met een ander zoekwoord dan:", zoekwoord)
+        elif gevonden == True:    
+            print("\nAlles is verwerkt, er zijn zoveel hits:", teller)
+        elif gevonden == "DNA" or gevonden == "mRNA":
+            print("je probeert een functie verkeerde inhoud te laten retourneren! Verander voor gewenste resultaat.")
+        elif gevonden != True:
+            print("het bestand is geen DNA bestand, geef een DNA bestand als invoer")
+        
 def lees_inhoud(bestands_naam):
     bestand_gevonden = True      
     # headers = []
@@ -120,6 +127,13 @@ def is_dna(sequentie):
                 A_T_C_G +=  1
             if letter == "G":
                 A_T_C_G +=  1
+    """    
+    if lengte == A_T_C_G:
+        gevonden = "DNA"
+    else:
+        gevonden = "mRNA"
+    """
+    
     if lengte == A_T_C_G:
         gevonden = True
     else:
@@ -138,11 +152,11 @@ def knipt(sequentie, enzymenlijst):
 
     
     sEnzymen = ""
-    for regel in enzymenlijst:                  
-        #kijkt of iets in de sequentie zit
+    for regel in enzymenlijst:
+        #kijkt of iets in de sequentie zit        
         if regel in sequentie:
             sEnzymen += regel + " "
-    
+   
     #en als er een hit is, wordt het enzym door gestuurd naar de main() functie                                        
     return sEnzymen                                 
     """
