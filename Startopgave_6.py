@@ -3,10 +3,10 @@
 # Datum: 18-10-2017 
 # Versie: 1
 
-# Voel je vrij om de variabelen/functies andere namen te geven als je die logischer vind.
 
-# Opmerking: Het alpaca bestand is erg groot! Neem eerst een klein proefstukje van het bestand, met 5 tot 10 fasta's.
-# Ga je runnen met het echte bestand, geef je programma dan even de tijd.
+
+
+
 #"/home/cole/Downloads/GCF_000164845.2_Vicugna_pacos-2.0.2_rna.fna"
 #"/home/cole/Documents/course 1/fasta bestanden/gallus gallus eiwit.fasta"
 #"/home/cole/Documents/course 1/fasta bestanden/genoom mus mus musculus.fasta"
