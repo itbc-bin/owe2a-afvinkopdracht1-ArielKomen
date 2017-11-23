@@ -8,7 +8,7 @@
 #"/home/cole/Documents/course 1/fasta bestanden/genoom mus mus musculus.fasta"
 
 def main():
-    bestand = "/home/cole/Documents/course 1/fasta bestanden/genoom mus mus musculus.fasta"
+    bestand = "/home/cole/Documents/course 1/fasta bestanden/gallus gallus eiwit.fasta"
     enzymen_bestand = ""
     try:
         enzymen_bestand = open ("/home/cole/Documents/course 2/afvinkopdrachten 2/enzymen.txt")
